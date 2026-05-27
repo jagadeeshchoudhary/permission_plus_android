@@ -1,7 +1,11 @@
 name: permission_plus_android
 description: "Android implementation of the permission_plus plugin."
+
 version: 0.0.1
-homepage:
+
+homepage: https://github.com/jagadeeshchoudhary/permission_plus_android
+repository: https://github.com/jagadeeshchoudhary/permission_plus_android/tree/main
+issue_tracker: https://github.com/jagadeeshchoudhary/permission_plus_android/issues
 
 environment:
   sdk: ^3.12.0
@@ -13,11 +17,11 @@ dependencies:
   plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
 
-flutter:  
+flutter:
   plugin:
     platforms:
       android:
