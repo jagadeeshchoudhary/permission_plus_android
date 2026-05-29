@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:permission_plus_android/permission_plus_android.dart';
 import 'package:permission_plus_platform_interface/permission_plus_platform_interface.dart';
@@ -16,27 +15,40 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _status = 'Unknown';
   final _plugin = PermissionPlusAndroid();
+  final Map<PermissionType, PermissionStatus> _statuses = {};
 
   @override
   void initState() {
     super.initState();
-    _checkCameraPermission();
+    _checkAllPermissions();
   }
 
-  Future<void> _checkCameraPermission() async {
+  Future<void> _checkAllPermissions() async {
+    for (final permission in PermissionType.values) {
+      try {
+        final status = await _plugin.checkPermission(permission);
+        if (mounted) {
+          setState(() {
+            _statuses[permission] = status;
+          });
+        }
+      } catch (e) {
+        debugPrint('Failed to check permission $permission: $e');
+      }
+    }
+  }
+
+  Future<void> _requestPermission(PermissionType permission) async {
     try {
-      final status = await _plugin.checkPermission(PermissionType.camera);
-      if (!mounted) return;
-      setState(() {
-        _status = 'Camera permission: ${status.name}';
-      });
+      final status = await _plugin.requestPermission(permission);
+      if (mounted) {
+        setState(() {
+          _statuses[permission] = status;
+        });
+      }
     } catch (e) {
-      if (!mounted) return;
-      setState(() {
-        _status = 'Error: $e';
-      });
+      debugPrint('Failed to request permission $permission: $e');
     }
   }
 
@@ -45,7 +57,22 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('Permission Plus Example')),
-        body: Center(child: Text(_status)),
+        body: ListView.builder(
+          itemCount: PermissionType.values.length,
+          itemBuilder: (context, index) {
+            final permission = PermissionType.values[index];
+            final status = _statuses[permission] ?? PermissionStatus.notDetermined;
+
+            return ListTile(
+              title: Text(permission.name),
+              subtitle: Text('Status: ${status.name}'),
+              trailing: ElevatedButton(
+                onPressed: () => _requestPermission(permission),
+                child: const Text('Request'),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
