@@ -169,6 +169,14 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  permission_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_plus_platform_interface
+      sha256: "7478ffbeda825a514c43b4c73fe8ecd21bc04a128ed50ffc500a456a837daa45"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   platform:
     dependency: transitive
     description:
