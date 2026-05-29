@@ -10,15 +10,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'package:permission_plus_android/permission_plus_android.dart';
+import 'package:permission_plus_platform_interface/permission_plus_platform_interface.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('getPlatformVersion test', (WidgetTester tester) async {
+  testWidgets('checkPermission returns a valid status',
+      (WidgetTester tester) async {
     final PermissionPlusAndroid plugin = PermissionPlusAndroid();
-    final String? version = await plugin.getPlatformVersion();
-    // The version string depends on the host platform running the test, so
-    // just assert that some non-empty string is returned.
-    expect(version?.isNotEmpty, true);
+    final PermissionStatus status =
+        await plugin.checkPermission(PermissionType.camera);
+    // The status depends on the device state, just assert it's a valid enum.
+    expect(PermissionStatus.values.contains(status), true);
   });
 }
