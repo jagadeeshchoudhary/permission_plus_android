@@ -1,7 +1,7 @@
 name: permission_plus_android
 description: "Android implementation of the permission_plus plugin."
 
-version: 0.0.1
+version: 0.0.2
 
 homepage: https://github.com/jagadeeshchoudhary/permission_plus_android
 repository: https://github.com/jagadeeshchoudhary/permission_plus_android/tree/main
