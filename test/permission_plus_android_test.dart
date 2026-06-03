@@ -52,6 +52,12 @@ class FakePermissionPlusHostApi extends PermissionPlusHostApi {
   }
 }
 
+class FakePermissionPlusHostApiReduced extends FakePermissionPlusHostApi {
+  @override
+  Future<LocationAccuracyMessage> getLocationAccuracy() async =>
+      LocationAccuracyMessage.reduced;
+}
+
 void main() {
   late PermissionPlusAndroid plugin;
   late FakePermissionPlusHostApi fakeApi;
@@ -95,10 +101,35 @@ void main() {
     expect(result, LocationAccuracy.precise);
   });
 
+  test('getLocationAccuracy returns reduced', () async {
+    final reducedPlugin = PermissionPlusAndroid(
+      api: FakePermissionPlusHostApiReduced(),
+    );
+    final result = await reducedPlugin.getLocationAccuracy();
+    expect(result, LocationAccuracy.reduced);
+  });
+
   test('requestTemporaryPreciseLocation returns granted', () async {
     final result = await plugin.requestTemporaryPreciseLocation(
       purposeKey: 'test',
     );
     expect(result, PermissionStatus.granted);
+  });
+
+  test('registerWith registers instance', () {
+    PermissionPlusAndroid.registerWith();
+    expect(PermissionPlusPlatform.instance, isA<PermissionPlusAndroid>());
+  });
+
+  test('default constructor initializes correctly', () {
+    final defaultPlugin = PermissionPlusAndroid();
+    expect(defaultPlugin, isNotNull);
+  });
+
+  test('permissionStatusStream throws UnimplementedError', () {
+    expect(
+      () => plugin.permissionStatusStream(PermissionType.camera),
+      throwsUnimplementedError,
+    );
   });
 }
