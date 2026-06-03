@@ -61,7 +61,8 @@ class _MyAppState extends State<MyApp> {
           itemCount: PermissionType.values.length,
           itemBuilder: (context, index) {
             final permission = PermissionType.values[index];
-            final status = _statuses[permission] ?? PermissionStatus.notDetermined;
+            final status =
+                _statuses[permission] ?? PermissionStatus.notDetermined;
 
             return ListTile(
               title: Text(permission.name),

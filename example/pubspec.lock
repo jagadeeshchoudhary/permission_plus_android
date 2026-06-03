@@ -168,15 +168,15 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.2"
+    version: "1.0.0"
   permission_plus_platform_interface:
     dependency: "direct main"
     description:
       name: permission_plus_platform_interface
-      sha256: "7478ffbeda825a514c43b4c73fe8ecd21bc04a128ed50ffc500a456a837daa45"
+      sha256: c718293a308031657e16257f956d36c68eac61a294d60ee3e2b527278d10e037
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "1.0.0"
   platform:
     dependency: transitive
     description:

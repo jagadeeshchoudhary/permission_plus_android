@@ -22,4 +22,3 @@ class MainActivity : FlutterFragmentActivity()
 ## Issues
 
 Please file any issues or feature requests at the [issue tracker](https://github.com/jagadeeshchoudhary/permission_plus_android/issues).
-

@@ -15,11 +15,13 @@ import 'package:permission_plus_platform_interface/permission_plus_platform_inte
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('checkPermission returns a valid status',
-      (WidgetTester tester) async {
+  testWidgets('checkPermission returns a valid status', (
+    WidgetTester tester,
+  ) async {
     final PermissionPlusAndroid plugin = PermissionPlusAndroid();
-    final PermissionStatus status =
-        await plugin.checkPermission(PermissionType.camera);
+    final PermissionStatus status = await plugin.checkPermission(
+      PermissionType.camera,
+    );
     // The status depends on the device state, just assert it's a valid enum.
     expect(PermissionStatus.values.contains(status), true);
   });
