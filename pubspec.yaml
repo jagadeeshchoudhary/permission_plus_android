@@ -28,6 +28,7 @@ flutter:
   plugin:
     platforms:
       android:
+        dartPluginClass: PermissionPlusAndroid
         package: com.jagadeeshchoudhary.permission_plus_android
         pluginClass: PermissionPlusAndroidPlugin
 
